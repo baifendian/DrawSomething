@@ -28,6 +28,7 @@
 	<logger name="bai" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="bai_file" />
+		<appender-ref ref="console" />
 	</logger>
 
 	
