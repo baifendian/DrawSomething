@@ -28,7 +28,7 @@ import com.bfd.vo.Img;
 /** 
  * <p>文件名称: ValidatorController.java</p>
  * 
- * <p>文件功能: </p>
+ * <p>文件功能: 验证码识别控制层 </p>
  *
  * <p>编程者: 拜力文</p>
  * 
