@@ -7,8 +7,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 /** 
  * <p>文件名称: TimeUtils.java</p>
  * 
@@ -34,43 +32,44 @@ import org.slf4j.LoggerFactory;
  * <p>============================================</p>
  */
 public class TimeUtils {
-	 private static final Logger logger = LoggerFactory.getLogger(ClientConstants.CLIENT_LOG);
-    
+    private static final Logger logger                                     = LoggerFactory
+                                                                                   .getLogger(ClientConstants.CLIENT_LOG);
+
     /**
      * 年月日   yyyy-MM-dd
      */
-    public final static String FORMAT_DATE = "yyyy-MM-dd";
+    public final static String  FORMAT_DATE                                = "yyyy-MM-dd";
 
     /**
      * 时分  HH:mm
      */
-    public final static String FORMAT_TIME = "HH:mm";
+    public final static String  FORMAT_TIME                                = "HH:mm";
 
     /**
      * 年月日 时分  yyyy-MM-dd HH:mm
      */
-    public final static String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm";
+    public final static String  FORMAT_DATE_TIME                           = "yyyy-MM-dd HH:mm";
 
     /**
      * MM月dd日 HH:mm
      */
-    public final static String FORMAT_MONTH_DAY_TIME = "MM月dd日 HH:mm";
-    
+    public final static String  FORMAT_MONTH_DAY_TIME                      = "MM月dd日 HH:mm";
+
     /**
      * yyyy-MM-dd HH:mm:ss
      */
-    public final static String FORMAT_FULL_DATE_TIME_WITH_SYMBOL = "yyyy-MM-dd HH:mm:ss";
-    
+    public final static String  FORMAT_FULL_DATE_TIME_WITH_SYMBOL          = "yyyy-MM-dd HH:mm:ss";
+
     /**
      * yyyyMMddHHmmss
      */
-    public final static String FORMAT_FULL_DATE_TIME_NO_SYMBOL = "yyyyMMddHHmmss";
-    
+    public final static String  FORMAT_FULL_DATE_TIME_NO_SYMBOL            = "yyyyMMddHHmmss";
+
     /**
      * yyyyMMddHHmmssSSS
      */
-    public final static String FORMAT_FULL_DATE_TIME_WITH_MILLS_NO_SYMBOL = "yyyyMMddHHmmssSSS";
-    
+    public final static String  FORMAT_FULL_DATE_TIME_WITH_MILLS_NO_SYMBOL = "yyyyMMddHHmmssSSS";
+
     /**
      * Description：比较俩日期相差秒数
      * 
@@ -118,18 +117,18 @@ public class TimeUtils {
      * @see #FORMAT_TIME
      * </pre>
      */
-    public static Date parseToDate(String str ,String formats) {
+    public static Date parseToDate(String str, String formats) {
 
         SimpleDateFormat format = new SimpleDateFormat(formats);
         Date date = null;
         try {
             date = format.parse(str);
         } catch (ParseException e) {
-        	logger.error("发生错误", e);
+            logger.error("发生错误", e);
         }
         return date;
     }
-    
+
     /**
      * Description：将长时间格式时间转换为字符串
      *  date to String
@@ -153,7 +152,7 @@ public class TimeUtils {
         String dateString = formatter.format(date);
         return dateString;
     }
-    
+
     /** 
     * Description：
     *   获取当前时间
@@ -163,29 +162,29 @@ public class TimeUtils {
     		String
     * @author name：
      **/
-    public static String getTimes(String format){
+    public static String getTimes(String format) {
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         String dateString = formatter.format(new Date());
         return dateString;
     }
-    
-	/**
-	 * Description：将长时间格式时间转换为字符串
-	 * 
-	 * @param format
-	 * @param date
-	 * @return
-	 * @return String
-	 * @author name：
-	 */
-	public static String dateFormat(String format, Date date) {
-		SimpleDateFormat formatter = new SimpleDateFormat(format);
-		String dateString = formatter.format(date);
-		return dateString;
-	}    
-    
+
+    /**
+     * Description：将长时间格式时间转换为字符串
+     * 
+     * @param format
+     * @param date
+     * @return
+     * @return String
+     * @author name：
+     */
+    public static String dateFormat(String format, Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        String dateString = formatter.format(date);
+        return dateString;
+    }
+
     public static void main(String[] args) {
         System.out.println(getTimes(TimeUtils.FORMAT_FULL_DATE_TIME_WITH_SYMBOL));
     }
-    
+
 }

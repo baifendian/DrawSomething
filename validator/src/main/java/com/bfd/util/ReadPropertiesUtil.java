@@ -23,10 +23,10 @@ public class ReadPropertiesUtil {
     *   </pre>
     * @author 拜力文
      **/
-    public static Object get(String proFile,String key) {
+    public static Object get(String proFile, String key) {
         try {
             InputStream in = Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream(proFile+".properties");
+                    .getResourceAsStream(proFile + ".properties");
             p = new Properties();
             p.load(in);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class ReadPropertiesUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println( (String) ReadPropertiesUtil.get("config/cms", "wxtoken"));
+        System.out.println((String) ReadPropertiesUtil.get("config/cms", "wxtoken"));
     }
 
 }

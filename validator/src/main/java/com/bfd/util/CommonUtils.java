@@ -36,18 +36,22 @@ public class CommonUtils {
         HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
         return request;
     }
+
     public static HttpSession getSession() {
         return getRequest().getSession();
     }
-    public static void setSessionAttribute(String key,Object value) {
+
+    public static void setSessionAttribute(String key, Object value) {
         getSession().setAttribute(key, value);
     }
+
     public static Object getSessionAttribute(String key) {
         return getSession().getAttribute(key);
     }
+
     public static void removeSessionAttribute(String key) {
         Object sessionAttribute = getSessionAttribute(key);
-        if(sessionAttribute!=null){
+        if (sessionAttribute != null) {
             getSession().removeAttribute(key);
         }
     }

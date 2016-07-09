@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baifendian.util.SimpleCrypto;
 import com.bfd.util.Base64;
 import com.bfd.util.ClientConstants;
 import com.bfd.util.HttpUtils;

@@ -1,8 +1,8 @@
 <#macro commonStyle>
 <base href="${basePath}">
 <link rel="shortcut icon" href="${basePath}favicon.ico" type="images/x-icon">
-<script src="${basePath}static/js/jquery-1.9.1.min.js"></script>
-<#--<script src="${basePath}js/json.js"></script> -->
+<script src="${basePath}assets/js/jquery-1.11.1.min.js"></script>
+<#--<script src="${basePath}assets/js/json.js"></script> -->
 <script type="text/javascript" >
 	basePath= "${basePath}";
 </script>

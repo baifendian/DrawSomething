@@ -66,7 +66,6 @@ public class ClientCommon {
 
             numberPattern = compiler.compile("^[0-9]*$");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

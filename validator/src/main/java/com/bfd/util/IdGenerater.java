@@ -1,6 +1,7 @@
 package com.bfd.util;
 
 import java.util.UUID;
+
 /** 
  * <p>文件名称: IdGenerater.java</p>
  * 
@@ -26,14 +27,15 @@ import java.util.UUID;
  * <p>============================================</p>
  */
 public class IdGenerater {
-	private IdGenerater(){
-		
-	}
-	/**
-	 * 使用uuid生成
-	 * @return
-	 */
-	public static String uuid() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
-	}
+    private IdGenerater() {
+
+    }
+
+    /**
+     * 使用uuid生成
+     * @return
+     */
+    public static String uuid() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
 }
