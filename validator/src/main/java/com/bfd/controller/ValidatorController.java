@@ -1,6 +1,8 @@
 package com.bfd.controller;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baifendian.util.SimpleCrypto;
 import com.bfd.util.Base64;
 import com.bfd.util.ClientConstants;
 import com.bfd.util.HttpUtils;
@@ -92,15 +95,32 @@ public class ValidatorController {
             String suffix = name.substring(++index, name.length());
             img.setData(data);
             img.setSuffix(suffix);
+            img.setDate(new Date());
             String id = IdGenerater.uuid();
             map.put(id, img);
             ret.put("id", id);
-            logger.debug("已保存到内存中，id为"+id);
+            clearMap();
+            logger.debug("已保存到内存中，id为" + id);
         } else {
             ret.put("id", "");
         }
-        logger.debug("响应为 "+ret.toJSONString());
+        logger.debug("响应为 " + ret.toJSONString());
         return ret;
+
+    }
+
+    private void clearMap() {
+        if (map.size() > 2000) {
+            Iterator<String> it = map.keySet().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
+                Img img = map.get(key);
+                Date date = img.getDate();
+                if (System.currentTimeMillis() - date.getTime() > 5 * 60 * 1000) {
+                    it.remove();
+                }
+            }
+        }
 
     }
 
@@ -124,7 +144,7 @@ public class ValidatorController {
         req.put("image_type", img.getSuffix());
         req.put("data", img.getData());
         getValidate(rets, req);
-        logger.debug("响应为"+rets.toJSONString());
+        logger.debug("响应为" + rets.toJSONString());
         return rets;
 
     }
@@ -150,7 +170,7 @@ public class ValidatorController {
         req.put("image_type", suffix);
         req.put("data", data);
         getValidate(rets, req);
-        logger.debug("上行安卓认证响应为"+rets.toJSONString());
+        logger.debug("上行安卓认证响应为" + rets.toJSONString());
         return rets;
 
     }
@@ -160,9 +180,9 @@ public class ValidatorController {
         String resStr = null;
         try {
             String reqStr = req.toJSONString();
-            //            reqStr = SimpleCrypto.encrypt(reqStr);
+            reqStr = SimpleCrypto.encrypt(reqStr);
             resStr = HttpUtils.sendHttpPostRequest(url, reqStr);
-            //            resStr = SimpleCrypto.decrypt(resStr);
+            resStr = SimpleCrypto.decrypt(resStr);
         } catch (Exception e) {
             e.printStackTrace();
             rets.put("code", "0");
