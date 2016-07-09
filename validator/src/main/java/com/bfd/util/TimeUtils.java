@@ -136,7 +136,7 @@ public class TimeUtils {
      * @param format
      * @param date
      * @return String
-     * @author name：lljqiu
+     * @author name：
      * <pre>
      * 关于参数 format
      * @see #FORMAT_DATE
@@ -161,7 +161,7 @@ public class TimeUtils {
     *   例如：yyyyMMddHHmmss
     * @return
     		String
-    * @author name：lljqiu
+    * @author name：
      **/
     public static String getTimes(String format){
         SimpleDateFormat formatter = new SimpleDateFormat(format);

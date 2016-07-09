@@ -5,7 +5,7 @@ import java.util.Properties;
 
 /**
  * 
- * @author lljqiu
+ * @author 拜力文
  *
  */
 public class ReadPropertiesUtil {
@@ -21,7 +21,7 @@ public class ReadPropertiesUtil {
     *       key 是properties  所对应的键
     *       返回，根据key获取的值
     *   </pre>
-    * @author name：lljqiu
+    * @author 拜力文
      **/
     public static Object get(String proFile,String key) {
         try {

@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <p> 文件名称: ClientCommon.java </p>
  * <p> 文件功能: 工具类 </p>
- * <p> 编程者: wangdoudou </p>
+ * <p> 编程者: 拜力文 </p>
  * <p> 初作时间: 2014-6-30 下午3:35:28 </p>
  * <p> 版本: version 1.0 </p>
  * <p> 输入说明: </p>
