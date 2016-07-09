@@ -28,6 +28,10 @@
     <span id="img3">
     <input type="radio" name="s_type" id="z" value="3">
     <img src="assets/img/3.png" style= ";"/>  </span>
+    <br/>
+    <span id="img4">
+    <input type="radio" name="s_type" id="z" value="4">
+    <img src="assets/img/t1.png" style= ";"/>  </span>
     </div>
 		<div>
 		<header>
