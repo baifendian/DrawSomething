@@ -109,6 +109,14 @@ public class ValidatorController {
 
     }
 
+    /** 
+    * <p>方法名称：clearMap</p>
+    * <p>方法描述：清理map内容</p>
+    *<p> 创建时间：2016年7月9日下午6:36:10</p>
+    * <p> void</p>
+    *  
+    * @author 拜力文
+     **/
     private void clearMap() {
         if (map.size() > 2000) {
             Iterator<String> it = map.keySet().iterator();
@@ -175,6 +183,15 @@ public class ValidatorController {
 
     }
 
+    /** 
+    * <p>方法名称：getValidate</p>
+    * <p>方法描述：获取验证码内容</p>
+    *<p> 创建时间：2016年7月9日下午6:36:25</p>
+    * <p>@param rets
+    * <p>@param req void</p>
+    *  
+    * @author 拜力文
+     **/
     public void getValidate(JSONObject rets, JSONObject req) {
         String url = (String) ReadPropertiesUtil.get("config", "url");
         String resStr = null;
