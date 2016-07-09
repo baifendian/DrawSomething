@@ -62,7 +62,7 @@ public class ClientConstants {
     // cache--->identi
     public static final int               DMSERVICE_CACHE_IDENTI                = 3;
 
-    public static final String            CLIENT_LOG                            = "bai";
+    public static final String            CLIENT_LOG                            = "validate";
     public static final String            CLIENT_ATHENA_LOG                     = "client_athena_log";
 
     public static final String            USER_MOBILE_NUMBER                    = "mobile_number";
