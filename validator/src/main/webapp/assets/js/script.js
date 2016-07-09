@@ -1,6 +1,7 @@
 $ (function () {
 	
-	var dropbox = $ ('#dropbox'), message = $ ('.message', dropbox);
+	var dropbox = $ ('#dropbox');
+	var message = $ ('.message', dropbox);
 	var id;
 	dropbox.filedrop ({
 	    // The name of the $_FILES entry:
@@ -29,6 +30,7 @@ $ (function () {
 				    alert (file.name + ' 图片大小最大为2M');
 				    break;
 			    default:
+			    	alert ('系统错误，请重新上传');
 				    break;
 		    }
 	    },
