@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout
+  android:id="@+id/layout1"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@drawable/background"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:gravity="center" 
+>
+  <TextView
+    android:id="@+id/myText1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/str_title"
+    android:textSize="20sp"
+    android:textColor="@drawable/black"
+    android:layout_x="10px"
+    android:layout_y="12px"
+  />
+  <TextView
+    android:id="@+id/myText2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="16sp"
+    android:textColor="@drawable/black"
+    android:layout_x="20px"
+    android:layout_y="72px"
+  />
+  <TextView
+    android:id="@+id/myText3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="16sp"
+    android:textColor="@drawable/black"
+    android:layout_x="20px"
+    android:layout_y="322px"
+  />
+  
+  <TextView
+    android:id="@+id/myText4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="16sp"
+    android:textColor="@drawable/black"
+    android:layout_x="245px"
+    android:layout_y="970px"
+  />
+  
+  <EditText 
+  android:id="@+id/EditText01" 
+  android:layout_width="wrap_content" 
+  android:layout_height="wrap_content" 
+  android:lines="1" 
+  android:maxLines="1" 
+  android:maxLength="200"
+  android:layout_x="400px"
+  android:layout_y="950px"
+  >
+  </EditText>
+  
+  <Button
+    android:id="@+id/myButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/str_button"
+    android:textSize="15sp"
+    android:layout_x="450px"
+    android:layout_y="1050px"
+  />
+  
+  <ImageView 
+  android:layout_width="wrap_content" 
+  android:layout_height="wrap_content" 
+  android:id="@+id/myImageView01" 
+  android:layout_x="220px" 
+  android:layout_y="510px"
+  android:maxWidth="900px"
+  android:maxHeight="400px"
+  android:padding="10dip"
+  android:background="#66FFFFFF"
+  android:adjustViewBounds="true"
+  android:layout_gravity="center"
+  >
+  </ImageView>
+  <Button 
+  android:layout_width="wrap_content" 
+  android:layout_height="wrap_content" 
+  android:text="@string/strButton01" 
+  android:id="@+id/myButton01" 
+  android:layout_y="1050px" 
+  android:layout_x="125px"
+  >
+  </Button>
+</AbsoluteLayout>
