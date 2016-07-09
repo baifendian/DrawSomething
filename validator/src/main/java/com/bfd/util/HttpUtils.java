@@ -60,237 +60,244 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class HttpUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
-	private static ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 20, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(1024), Executors.defaultThreadFactory(), new DiscardOldestPolicy());
+    private static final Logger       logger   = LoggerFactory.getLogger(HttpUtils.class);
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 20, 1,
+                                                       TimeUnit.MINUTES,
+                                                       new ArrayBlockingQueue<Runnable>(1024),
+                                                       Executors.defaultThreadFactory(),
+                                                       new DiscardOldestPolicy());
 
-	public static JSONObject sendTokenValidateRequest(String url, String jsonData) throws Exception {
-		url += "api/tokenValidate";
-		return JSONObject.parseObject(sendDispatchPostRequest(url, jsonData));
-	}
+    public static JSONObject sendTokenValidateRequest(String url, String jsonData) throws Exception {
+        url += "api/tokenValidate";
+        return JSONObject.parseObject(sendDispatchPostRequest(url, jsonData));
+    }
 
-	public static String sendDispatchPostRequest(String url, String jsonData) throws Exception {
-		String[] split = url.split(":");
-		if (split[0].equals("https")) {
-			return sendHttpsPostRequest(url, jsonData);
-		} else {
-			return sendHttpPostRequest(url, jsonData);
+    public static String sendDispatchPostRequest(String url, String jsonData) throws Exception {
+        String[] split = url.split(":");
+        if (split[0].equals("https")) {
+            return sendHttpsPostRequest(url, jsonData);
+        } else {
+            return sendHttpPostRequest(url, jsonData);
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * Description：发送http post请求
-	 * 
-	 * @param url
-	 * @param jsonData
-	 * @return void
-	 * @throws Exception 
-	 **/
-	public static String sendHttpPostRequest(String url, String jsonData) throws Exception {
-		String result = null;
-		HttpClientBuilder builder = HttpClientBuilder.create();
-		CloseableHttpClient httpclient = builder.build();
-		HttpPost httpPost = new HttpPost();
-		URI uri = null;
-		StringEntity entity = new StringEntity(jsonData);
-		entity.setContentEncoding("UTF-8");
-		entity.setContentType("application/json");
-		uri = new URI(url);
-		httpPost.setURI(uri);
-		httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
-		httpPost.setEntity(entity);
+    /**
+     * Description：发送http post请求
+     * 
+     * @param url
+     * @param jsonData
+     * @return void
+     * @throws Exception 
+     **/
+    public static String sendHttpPostRequest(String url, String jsonData) throws Exception {
+        String result = null;
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        CloseableHttpClient httpclient = builder.build();
+        HttpPost httpPost = new HttpPost();
+        URI uri = null;
+        StringEntity entity = new StringEntity(jsonData);
+        entity.setContentEncoding("UTF-8");
+        entity.setContentType("application/json");
+        uri = new URI(url);
+        httpPost.setURI(uri);
+        httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
+        httpPost.setEntity(entity);
 
-		HttpResponse response = httpclient.execute(httpPost);// 发起请求
-		int resultCode = response.getStatusLine().getStatusCode();
-		logger.debug("result code" + resultCode);
-		HttpEntity responseEntity = response.getEntity();
-		result = EntityUtils.toString(responseEntity);
-		logger.debug("idmp reponse" + result);
-		httpclient.close();
-		return result;
-	}
+        HttpResponse response = httpclient.execute(httpPost);// 发起请求
+        int resultCode = response.getStatusLine().getStatusCode();
+        logger.debug("result code" + resultCode);
+        HttpEntity responseEntity = response.getEntity();
+        result = EntityUtils.toString(responseEntity);
+        logger.debug("idmp reponse" + result);
+        httpclient.close();
+        return result;
+    }
 
-	/**
-	 * Description：发送http post请求
-	 * 
-	 * @param url
-	 * @param jsonData
-	 * @return void
-	 * @throws Exception 
-	 * @throws ClientProtocolException 
-	 **/
-	public static String sendHttpsPostRequest(String url, String jsonData) throws ClientProtocolException, Exception {
-		String result = null;
-		CloseableHttpClient httpclient = createSSLClientDefault();
-		HttpPost httpPost = new HttpPost();
-		URI uri = null;
-		StringEntity entity = new StringEntity(jsonData);
-		entity.setContentEncoding("UTF-8");
-		entity.setContentType("application/json");
-		uri = new URI(url);
-		httpPost.setURI(uri);
-		httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
-		httpPost.setEntity(entity);
+    /**
+     * Description：发送http post请求
+     * 
+     * @param url
+     * @param jsonData
+     * @return void
+     * @throws Exception 
+     * @throws ClientProtocolException 
+     **/
+    public static String sendHttpsPostRequest(String url, String jsonData)
+            throws ClientProtocolException, Exception {
+        String result = null;
+        CloseableHttpClient httpclient = createSSLClientDefault();
+        HttpPost httpPost = new HttpPost();
+        URI uri = null;
+        StringEntity entity = new StringEntity(jsonData);
+        entity.setContentEncoding("UTF-8");
+        entity.setContentType("application/json");
+        uri = new URI(url);
+        httpPost.setURI(uri);
+        httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
+        httpPost.setEntity(entity);
 
-		HttpResponse response = httpclient.execute(httpPost);// 发起请求
-		int resultCode = response.getStatusLine().getStatusCode();
-		logger.debug("result code" + resultCode);
-		HttpEntity responseEntity = response.getEntity();
-		//		FileOutputStream os  = new FileOutputStream("d:/a.png");
-		//		responseEntity.writeTo(os );
-		//		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(os);
-		//		outputStreamWriter.flush();
-		result = EntityUtils.toString(responseEntity);
-		logger.debug("idmp reponse" + result);
-		httpclient.close();
-		return result;
+        HttpResponse response = httpclient.execute(httpPost);// 发起请求
+        int resultCode = response.getStatusLine().getStatusCode();
+        logger.debug("result code" + resultCode);
+        HttpEntity responseEntity = response.getEntity();
+        //		FileOutputStream os  = new FileOutputStream("d:/a.png");
+        //		responseEntity.writeTo(os );
+        //		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(os);
+        //		outputStreamWriter.flush();
+        result = EntityUtils.toString(responseEntity);
+        logger.debug("idmp reponse" + result);
+        httpclient.close();
+        return result;
 
-	}
+    }
 
-	/**
-	 * Description：发送http请求，无响应
-	 * 
-	 * @param url
-	 * @param jsonData
-	 * @return void
-	 **/
-	public static void sendHttpRequest(String url, String jsonData) {
-		HttpClientBuilder builder = HttpClientBuilder.create();
-		final CloseableHttpClient httpclient = builder.build();
-		final HttpPost httpPost = new HttpPost();
-		URI uri = null;
-		try {
-			uri = new URI(url);
-			httpPost.setURI(uri);
-			httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
-			httpPost.setHeader("msg", jsonData);
-			executor.submit(new Runnable() {
+    /**
+     * Description：发送http请求，无响应
+     * 
+     * @param url
+     * @param jsonData
+     * @return void
+     **/
+    public static void sendHttpRequest(String url, String jsonData) {
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        final CloseableHttpClient httpclient = builder.build();
+        final HttpPost httpPost = new HttpPost();
+        URI uri = null;
+        try {
+            uri = new URI(url);
+            httpPost.setURI(uri);
+            httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
+            httpPost.setHeader("msg", jsonData);
+            executor.submit(new Runnable() {
 
-				public void run() {
-					try {
-						logger.debug("开始发送http请求");
-						HttpResponse response = httpclient.execute(httpPost);// 发起请求
-						HttpEntity responseEntity = response.getEntity();
-						EntityUtils.consume(responseEntity);
-						httpclient.close();
-						logger.debug("完成发送http请求");
-					} catch (Exception e) {
-						logger.error("发生错误", e);
-					}
+                public void run() {
+                    try {
+                        logger.debug("开始发送http请求");
+                        HttpResponse response = httpclient.execute(httpPost);// 发起请求
+                        HttpEntity responseEntity = response.getEntity();
+                        EntityUtils.consume(responseEntity);
+                        httpclient.close();
+                        logger.debug("完成发送http请求");
+                    } catch (Exception e) {
+                        logger.error("发生错误", e);
+                    }
 
-				}
-			});
+                }
+            });
 
-		} catch (Exception e) {
-			logger.error("发生错误", e);
-		}
+        } catch (Exception e) {
+            logger.error("发生错误", e);
+        }
 
-	}
+    }
 
-	/**
-	 * Description：发送http get 请求
-	 * 
-	 * @param url
-	 * @param msg
-	 * @return
-	 * @return JSONObject
-	 * @author 拜力文
-	 **/
-	public static JSONObject sendHttpGetRequest(String url, JSONObject msg) {
+    /**
+     * Description：发送http get 请求
+     * 
+     * @param url
+     * @param msg
+     * @return
+     * @return JSONObject
+     * @author 拜力文
+     **/
+    public static JSONObject sendHttpGetRequest(String url, JSONObject msg) {
 
-		HttpClientBuilder builder = HttpClientBuilder.create();
-		CloseableHttpClient httpclient = builder.build();
-		Iterator<String> iterator = msg.keySet().iterator();
-		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(url).append("?");
-		for (; iterator.hasNext();) {
-			String next = iterator.next();
-			String value = msg.getString(next);
-			stringBuffer.append(next).append("=").append(value).append("&");
-		}
-		String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
-		String conResult = null;
-		HttpGet httpGet = new HttpGet(substring);
-		try {
-			HttpResponse response = httpclient.execute(httpGet);// 发起请求
-			conResult = EntityUtils.toString(response.getEntity());// 获得响应结果
-			httpclient.close();// 关闭
-		} catch (Exception e) {
-			logger.error("发生错误", e);
-		}
-		return JSON.parseObject(conResult);
-	}
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        CloseableHttpClient httpclient = builder.build();
+        Iterator<String> iterator = msg.keySet().iterator();
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(url).append("?");
+        for (; iterator.hasNext();) {
+            String next = iterator.next();
+            String value = msg.getString(next);
+            stringBuffer.append(next).append("=").append(value).append("&");
+        }
+        String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
+        String conResult = null;
+        HttpGet httpGet = new HttpGet(substring);
+        try {
+            HttpResponse response = httpclient.execute(httpGet);// 发起请求
+            conResult = EntityUtils.toString(response.getEntity());// 获得响应结果
+            httpclient.close();// 关闭
+        } catch (Exception e) {
+            logger.error("发生错误", e);
+        }
+        return JSON.parseObject(conResult);
+    }
 
-	/**
-	 * Description：发送http get 请求
-	 * 
-	 * @param url
-	 * @param msg
-	 * @return
-	 * @return JSONObject
-	 * @author 拜力文
-	 **/
-	public static JSONObject sendHttpsGetRequest(String url, JSONObject msg) {
+    /**
+     * Description：发送http get 请求
+     * 
+     * @param url
+     * @param msg
+     * @return
+     * @return JSONObject
+     * @author 拜力文
+     **/
+    public static JSONObject sendHttpsGetRequest(String url, JSONObject msg) {
 
-		CloseableHttpClient httpclient = createSSLClientDefault();
-		Iterator<String> iterator = msg.keySet().iterator();
-		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(url).append("?");
-		for (; iterator.hasNext();) {
-			String next = iterator.next();
-			String value = msg.getString(next);
-			stringBuffer.append(next).append("=").append(value).append("&");
-		}
-		String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
-		String conResult = null;
-		HttpGet httpGet = new HttpGet(substring);
-		try {
+        CloseableHttpClient httpclient = createSSLClientDefault();
+        Iterator<String> iterator = msg.keySet().iterator();
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(url).append("?");
+        for (; iterator.hasNext();) {
+            String next = iterator.next();
+            String value = msg.getString(next);
+            stringBuffer.append(next).append("=").append(value).append("&");
+        }
+        String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
+        String conResult = null;
+        HttpGet httpGet = new HttpGet(substring);
+        try {
 
-			HttpResponse response = httpclient.execute(httpGet);// 发起请求
-			conResult = EntityUtils.toString(response.getEntity());// 获得响应结果
-			httpclient.close();// 关闭
-		} catch (Exception e) {
-			logger.error("发生错误", e);
-			e.printStackTrace();
-		}
-		return JSON.parseObject(conResult);
-	}
+            HttpResponse response = httpclient.execute(httpGet);// 发起请求
+            conResult = EntityUtils.toString(response.getEntity());// 获得响应结果
+            httpclient.close();// 关闭
+        } catch (Exception e) {
+            logger.error("发生错误", e);
+            e.printStackTrace();
+        }
+        return JSON.parseObject(conResult);
+    }
 
-	public static CloseableHttpClient createSSLClientDefault() {
-		try {
-			SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
-				// 信任所有
-				public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-					return true;
-				}
-			}).build();
-			SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext);
-			return HttpClients.custom().setSSLSocketFactory(sslsf).build();
-		} catch (KeyManagementException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (KeyStoreException e) {
-			e.printStackTrace();
-		}
-		return HttpClients.createDefault();
-	}
+    public static CloseableHttpClient createSSLClientDefault() {
+        try {
+            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null,
+                    new TrustStrategy() {
+                        // 信任所有
+                        public boolean isTrusted(X509Certificate[] chain, String authType)
+                                throws CertificateException {
+                            return true;
+                        }
+                    }).build();
+            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext);
+            return HttpClients.custom().setSSLSocketFactory(sslsf).build();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        }
+        return HttpClients.createDefault();
+    }
 
-	public static String getRequestMsg(JSONObject msg) {
-		Iterator<String> iterator = msg.keySet().iterator();
-		StringBuffer stringBuffer = new StringBuffer();
-		for (; iterator.hasNext();) {
-			String next = iterator.next();
-			String value = msg.getString(next);
-			stringBuffer.append(next).append("=").append(value).append("&");
-		}
-		String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
-		return substring;
-	}
+    public static String getRequestMsg(JSONObject msg) {
+        Iterator<String> iterator = msg.keySet().iterator();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (; iterator.hasNext();) {
+            String next = iterator.next();
+            String value = msg.getString(next);
+            stringBuffer.append(next).append("=").append(value).append("&");
+        }
+        String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
+        return substring;
+    }
 
-	public static void main(String[] args) throws Exception {
-		String url = "https://kyfw.12306.cn/otn/login/init";
-		HttpUtils.sendDispatchPostRequest(url, "");
+    public static void main(String[] args) throws Exception {
+        String url = "https://kyfw.12306.cn/otn/login/init";
+        HttpUtils.sendDispatchPostRequest(url, "");
 
-	}
+    }
 }
