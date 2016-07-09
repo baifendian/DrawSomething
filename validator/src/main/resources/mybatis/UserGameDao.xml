@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.dao.UserGameDao">
+
+	<resultMap id="BaseResultMap" type="com.cmcc.po.UserGame">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="game_id" property="gameId" />
+		<result column="game_pass" property="gamePass" />
+		<result column="game_score" property="gameScore" />
+		<result column="is_collection" property="isCollection" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="extend_1" property="extend1" />
+		<result column="extend_2" property="extend2" />
+		<result column="extend_3" property="extend3" />
+		<result column="extend_4" property="extend4" />
+		<result column="extend_5" property="extend5" />
+	</resultMap>
+
+	<sql id="Base_Column_List" >
+    	id, user_id, game_id, game_pass, game_score, is_collection, create_time, update_time, extend_1, extend_2, extend_3, extend_4, extend_5
+  	</sql>
+	<select id="findByPrimaryKey" resultMap="BaseResultMap" parameterType="java.io.Serializable">
+		select
+		<include refid="Base_Column_List" />
+		from USER_GAME
+		where
+		id = #{id}
+	</select>
+
+	<select id="findByCondition" resultMap="BaseResultMap" parameterType="java.io.Serializable">
+		select
+		<include refid="Base_Column_List" />
+		from USER_GAME
+		where
+		${condition}
+	</select>
+	<select id="findAll" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from USER_GAME
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.io.Serializable">
+		delete from USER_GAME
+		where
+		id = #{id}
+	</delete>
+	
+	<delete id="deleteByCondition" parameterType="java.io.Serializable">
+		delete from USER_GAME
+		where
+		${condition}
+	</delete>
+
+	<delete id="deleteAll">
+		delete from USER_GAME
+	</delete>
+
+	<insert id="create" parameterType="com.cmcc.po.UserGame" useGeneratedKeys="true" keyProperty="id">
+		insert into USER_GAME (<include refid="Base_Column_List" />)
+		values (
+		#{id, javaType=Long, jdbcType=BIGINT},
+		#{userId, javaType=Long, jdbcType=BIGINT},
+		#{gameId, javaType=Long, jdbcType=BIGINT},
+		#{gamePass, javaType=String, jdbcType=VARCHAR},
+		#{gameScore, javaType=String, jdbcType=VARCHAR},
+		#{isCollection, javaType=Integer, jdbcType=TINYINT},
+		#{createTime, javaType=Date, jdbcType=TIMESTAMP},
+		#{updateTime, javaType=Date, jdbcType=TIMESTAMP},
+		#{extend1, javaType=String, jdbcType=VARCHAR},
+		#{extend2, javaType=String, jdbcType=VARCHAR},
+		#{extend3, javaType=String, jdbcType=VARCHAR},
+		#{extend4, javaType=String, jdbcType=VARCHAR},
+		#{extend5, javaType=String, jdbcType=VARCHAR}
+		)
+	<!--<selectKey resultType="String" order="AFTER" keyProperty="id"> 
+			SELECT LAST_INSERT_ID() 
+		</selectKey>  -->	
+	</insert>
+	
+		<insert id="save" parameterType="com.cmcc.po.UserGame" keyProperty="id">
+		insert into USER_GAME (<include refid="Base_Column_List" />)
+		values (
+		#{id, javaType=Long, jdbcType=BIGINT},
+		#{userId, javaType=Long, jdbcType=BIGINT},
+		#{gameId, javaType=Long, jdbcType=BIGINT},
+		#{gamePass, javaType=String, jdbcType=VARCHAR},
+		#{gameScore, javaType=String, jdbcType=VARCHAR},
+		#{isCollection, javaType=Integer, jdbcType=TINYINT},
+		#{createTime, javaType=Date, jdbcType=TIMESTAMP},
+		#{updateTime, javaType=Date, jdbcType=TIMESTAMP},
+		#{extend1, javaType=String, jdbcType=VARCHAR},
+		#{extend2, javaType=String, jdbcType=VARCHAR},
+		#{extend3, javaType=String, jdbcType=VARCHAR},
+		#{extend4, javaType=String, jdbcType=VARCHAR},
+		#{extend5, javaType=String, jdbcType=VARCHAR}
+		)
+	</insert>
+		
+	<update id="update" parameterType="com.cmcc.po.UserGame">
+	  update USER_GAME 
+	   <trim prefix="SET" suffixOverrides=",">   
+	  		<if test="userId != null and userId != ''">
+				user_id = #{userId, javaType=Long, jdbcType=BIGINT},
+		</if>
+		<if test="gameId != null and gameId != ''">
+				game_id = #{gameId, javaType=Long, jdbcType=BIGINT},
+		</if>
+		<if test="gamePass != null and gamePass != ''">
+				game_pass = #{gamePass, javaType=String, jdbcType=VARCHAR},
+		</if>
+		<if test="gameScore != null and gameScore != ''">
+				game_score = #{gameScore, javaType=String, jdbcType=VARCHAR},
+		</if>
+		<if test="isCollection != null and isCollection != ''">
+				is_collection = #{isCollection, javaType=Integer, jdbcType=TINYINT},
+		</if>
+		<if test="createTime != null and createTime != ''">
+				create_time = #{createTime, javaType=Date, jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+				update_time = #{updateTime, javaType=Date, jdbcType=TIMESTAMP},
+		</if>
+		<if test="extend1 != null and extend1 != ''">
+				extend_1 = #{extend1, javaType=String, jdbcType=VARCHAR},
+		</if>
+		<if test="extend2 != null and extend2 != ''">
+				extend_2 = #{extend2, javaType=String, jdbcType=VARCHAR},
+		</if>
+		<if test="extend3 != null and extend3 != ''">
+				extend_3 = #{extend3, javaType=String, jdbcType=VARCHAR},
+		</if>
+		<if test="extend4 != null and extend4 != ''">
+				extend_4 = #{extend4, javaType=String, jdbcType=VARCHAR},
+		</if>
+		<if test="extend5 != null and extend5 != ''">
+				extend_5 = #{extend5, javaType=String, jdbcType=VARCHAR}
+		</if>
+ </trim>	
+	    where
+		id = #{id}
+	</update>
+
+
+	<select id="getTotal"  resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM USER_GAME
+	</select>
+	
+	<select id="getTotalByCondition"  resultType="java.lang.Integer" parameterType="java.io.Serializable">
+	  SELECT COUNT(*) FROM USER_GAME
+	  where
+	  ${condition}
+	</select>
+	
+	<delete id="deleteList" parameterType="java.util.List">
+	   delete USER_GAME  WHERE id IN
+		<foreach collection="list" index="index" item="sn" open="(" separator="," close=")">
+			#{sn}
+		</foreach>
+    </delete>
+    
+    <select id="findByPrimaryKeyPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		
+		<![CDATA[ ]]>
+		SELECT 
+		 <include refid="Base_Column_List" />
+		FROM
+		USER_GAME
+		order by 
+		id
+		desc
+		limit
+		#{startIndex} ,#{pageSize}
+		
+		
+	</select>
+	
+	    <select id="findPageByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		
+		<![CDATA[ ]]>
+		SELECT 
+		 <include refid="Base_Column_List" />
+		FROM
+		USER_GAME
+		where
+		${condition}
+		order by 
+		id
+		desc
+		limit
+		#{startIndex} ,#{pageSize}
+		
+		
+	</select>
+	<!--codegen -->
+
+</mapper>

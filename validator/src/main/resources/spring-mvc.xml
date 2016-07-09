@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 开启aspectJ支持, 强制使用cglib实现动态代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<context:component-scan base-package="com.bfd" />
+
+
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+				<!-- 日期格式转换 -->
+				<!-- <property name="webBindingInitializer"> <bean class="com.bai.util.DateConvertor" 
+					/> </property> -->
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:default-servlet-handler /><!--找不到映射资源时找静态资源 -->
+	<!-- <mvc:annotation-driven/> --><!-- 使用会使 response body 中文乱码 -->
+	<!-- <mvc:resources mapping="/js/**" location="/js/" /> -->
+	<!-- 静态资源映射 -->
+	<!--<mvc:resources mapping="/wap/js/**" location="/wapResource/js/" /> -->
+	<!-- <mvc:resources mapping="/wap/css/**" location="/wapResource/css/" /> -->
+	<!-- <mvc:resources mapping="/wap/images/**" location="/wapResource/images/" 
+		/> -->
+	<!-- <mvc:resources mapping="/favicon.ico" location="/favicon.ico" /> -->
+	<!-- 上传设置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" /><!-- 10M -->
+		<property name="resolveLazily" value="true" />
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+
+	<!-- Freemarker Configuration -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="configLocation" value="classpath:ftl.properties" />
+		<property name="templateLoaderPath" value="/WEB-INF/views" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">10</prop>
+				<prop key="locale">zh_CN</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="prefix" value="" />
+		<property name="cache" value="true" />
+		<property name="suffix">
+			<value>.ftl</value>
+		</property>
+	</bean>
+<!-- 	<mvc:interceptors>
+		<mvc:interceptor >
+		<mvc:mapping path="/manager/**" />
+		<mvc:exclude-mapping path="/manager/login"/>
+		<mvc:exclude-mapping path="/manager/loginTo"/>
+		<bean class="com.cmcc.interceptor.SecurityInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor >
+		<mvc:mapping path="/info" />
+		<mvc:mapping path="/index" />
+		<bean class="com.cmcc.interceptor.UserInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+</beans>
